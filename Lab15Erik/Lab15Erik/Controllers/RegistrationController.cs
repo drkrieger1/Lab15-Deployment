@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lab15Erik.Model;
 using Lab15Erik.Models;
+using Lab15Erik.ViewModel;
 
 namespace Lab15Erik.Controllers
 {
@@ -20,9 +21,29 @@ namespace Lab15Erik.Controllers
         }
 
         // GET: Registration
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string course ,string search)
         {
-            return View(await _context.Student.ToListAsync());
+            IQueryable<string> courseQuery = from m in _context.Student 
+                                            orderby m.Course
+                                            select m.Course;
+
+            var students = from s in _context.Student
+                           select s;
+            if (!String.IsNullOrEmpty(search))
+            {
+                students = students.Where(t => t.Name.Contains(search));
+            }
+
+            if (!String.IsNullOrEmpty(course))
+            {
+                students = students.Where(g => g.Course == course);
+            }
+
+            var StudentCourseVm = new CourseViewModel();
+            StudentCourseVm.courses = new SelectList(await courseQuery.Distinct().ToListAsync());
+            StudentCourseVm.students = await students.ToListAsync();
+
+            return View(StudentCourseVm);
         }
 
         // GET: Registration/Details/5
