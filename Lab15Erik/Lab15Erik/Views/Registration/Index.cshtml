@@ -4,14 +4,17 @@
     Layout = null;
     ViewData["Title"] = "Index";
 }
-
+<head>
+    <link href="~/Reset.css" type="text/css" rel="stylesheet" />
+    <link href="~/RegistrationStyle.css" type="text/css" rel="stylesheet" />
+</head>
 
 <body>
-<h2>Index</h2>
+<h2>Registration</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="create">
+    <a  asp-action="Create">Create New</a>
+</div>
     <form asp-controller="Registration" asp-action="index" method="get">
         <p>
             <select asp-for="studentCourse" asp-items="Model.courses">

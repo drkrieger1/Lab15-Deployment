@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\Reset.css" />
-    <None Include="wwwroot\LayOutStyleSheet.css" />
+    <None Include="wwwroot\FormView.css" />
   </ItemGroup>
 
   <ItemGroup>
